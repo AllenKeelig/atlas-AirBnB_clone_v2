@@ -18,6 +18,7 @@ def hbnb():
     '''The hbnb page.'''
     return 'HBNB'
 
+
 @app.route('/c/<text>', strict_slashes=False)
 def c(text):
     return "C {}".format(text.replace("_", " "))

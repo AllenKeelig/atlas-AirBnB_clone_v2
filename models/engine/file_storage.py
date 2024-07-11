@@ -21,16 +21,15 @@ class FileStorage:
     
 
     def all(self, cls=None):
-        """the current database session"""
-        new_dict = {}
-        classes = self.CDIC
-        for class_name, class_obj in classes.items():
-            if cls is None or cls is class_obj or cls is class_name:
-                objs = self.__session.query(class_obj).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + "." + obj.id
-                    new_dict[key] = obj
-        return new_dict
+        """Returns a dictionary of models currently in storage"""
+        if cls is None:
+            return self.__objects
+        else:
+            filtered_dict = {}
+            for key, value in self.__objects.items():
+                if type(value) is cls:
+                    filtered_dict[key] = value
+            return filtered_dict
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
